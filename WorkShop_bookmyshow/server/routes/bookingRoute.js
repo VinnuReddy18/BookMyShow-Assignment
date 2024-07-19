@@ -1,14 +1,12 @@
 const express = require("express");
 const router = require("express").Router();
-const stripe = require("stripe")(
-  "sk_test_51JKPQWSJULHQ0FL7LbqLKOaIcjurlUcdP2hJQkXZw3txlhh0hFrEEEOTwdVxf6sWKqLIrerKpV5EfGvmvntYu7Mt00vJq4YQKL"
-);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const authMiddleware = require("../middlewares/authMiddleware");
 const Booking = require("../models/bookingModel");
 const Show = require("../models/showModel");
 const EmailHelper = require("../utils/emailSender");
 
-const endpointSecret = "whsec_774b9109545b45e18af845534afa4e7e0d144a1a57db46482ca7886c10cd5a5a";
+const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
 
  // Webhook endpoint 
 router.post('/webhook', express.raw({ type: 'application/json' }), (request, response) => {
